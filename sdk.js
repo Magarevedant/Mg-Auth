@@ -17,7 +17,7 @@ window.mgAuth = { email: null, time: null };
 
   const verify = async tok => {
     try {
-      const res = await fetch("https://mg-auth.onrender.com/verify?token=" + tok);
+      const res = await fetch("https://mg-auth.onrender.com/verify_token?token=" + tok);
       if (!res.ok) throw new Error("Server error");
       const json = await res.json();
 
