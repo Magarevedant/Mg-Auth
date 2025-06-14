@@ -44,6 +44,7 @@
     <a href="https://mg-auth.onrender.com/page/%7B%22brand_name%22%3A%22Magare%22%2C%22brand_logo%22%3A%22https%3A%2F%2Fhollo.com%22%2C%22url%22%3A%22https%3A%2F%2Fmagarevedant.github.io%2FMg-Auth%22%7D" class="btn" id="login-btn" style="display: none;">
       Login with MG Auth
     </a>
+    <button onclick="waitUntilReady()">refresh</button>
   </div>
 
   <!-- ✅ Load SDK from CDN -->
@@ -56,6 +57,7 @@
       const loginBtn = document.getElementById("login-btn");
 
       const waitUntilReady = () => {
+        alert("starting update" + mgAuth.email);
         if (window.mgAuth?.email) {
           statusEl.textContent = "Logged in as: " + mgAuth.email;
         } else {
@@ -65,7 +67,7 @@
       };
 
       // Wait briefly to let SDK complete its async work
-      setTimeout(waitUntilReady, 1000);
+      setTimeout(waitUntilReady, 100);
     });
   </script>
 
