@@ -14,7 +14,7 @@ window.mgAuth = { email: null, time: null };
 
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get("token");
-
+ alert(token);
   const verify = async tok => {
     try {
       const res = await fetch("https://mg-auth.onrender.com/verify_token?token=" + tok);
@@ -32,7 +32,7 @@ window.mgAuth = { email: null, time: null };
       }
     } catch (e) {
       alert("MG Auth: Token verification failed", e);
-      alert(JSON.stringify(json)):
+      alert(JSON.stringify(json));
     }
     return false;
   };
