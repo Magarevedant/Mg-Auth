@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MG Auth Login</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #f9fafb;
+      color: #111827;
+    }
+    .card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+      text-align: center;
+      max-width: 400px;
+    }
+    .btn {
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Welcome to My App</h2>
+    <p id="auth-status">Checking login...</p>
+    <a href="https://mg-auth.onrender.com/page/%7B%22brand_name%22%3A%22Magare%22%2C%22brand_logo%22%3A%22https%3A%2F%2Fhollo.com%22%2C%22url%22%3A%22https%3A%2F%2Fmagarevedant.github.io%2FMg-Auth%22%7D" class="btn" id="login-btn" style="display: none;">
+      Login with MG Auth
+    </a>
+  </div>
+
+  <!-- ✅ Load SDK from CDN -->
+  <script src="https://magarevedant.github.io/Mg-Auth/sdk.js"></script>
+
+  <!-- ✅ Use SDK after it loads -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const statusEl = document.getElementById("auth-status");
+      const loginBtn = document.getElementById("login-btn");
+
+      const waitUntilReady = () => {
+        if (window.mgAuth?.email) {
+          statusEl.textContent = "Logged in as: " + mgAuth.email;
+        } else {
+          statusEl.textContent = "You're not logged in.";
+          loginBtn.style.display = "inline-block";
+        }
+      };
+
+      // Wait briefly to let SDK complete its async work
+      setTimeout(waitUntilReady, 100);
+    });
+  </script>
+
+</body>
+</html>
