@@ -15,12 +15,11 @@ window.mgAuth = { email: null, time: null };
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get("token");
 
-  const verify = async (tok) => {
+  const verify = async tok => {
     try {
       const res = await fetch("https://mg-auth.onrender.com/verify_token?token=" + tok);
       if (!res.ok) throw new Error("Server error");
       const json = await res.json();
-      alert("Verification response: " + JSON.stringify(json));
 
       if (json.valid && json.email && json.exp) {
         const ttl = json.exp - Math.floor(Date.now() / 1000);
@@ -28,19 +27,17 @@ window.mgAuth = { email: null, time: null };
         setCookie("mg_exp", json.exp, ttl);
         mgAuth.email = json.email;
         mgAuth.time = json.exp;
-        alert("MG Auth: Verified and authenticated as " + json.email);
-        return true;
-      } else {
-        alert("MG Auth: Invalid token response");
+
+        window.dispatchEvent(new Event("mgAuthReady")); // <-- important
+        return;
       }
     } catch (e) {
-      alert("MG Auth: Token verification failed: " + e.message);
+      console.warn("MG Auth: Token verification failed", e);
     }
-    return false;
+    window.dispatchEvent(new Event("mgAuthReady")); // even on failure
   };
 
   if (token) {
-    alert("Token found in URL: " + token);
     await verify(token);
   } else {
     const email = getCookie("mg_email");
@@ -49,9 +46,7 @@ window.mgAuth = { email: null, time: null };
     if (email && exp && exp > Math.floor(Date.now() / 1000)) {
       mgAuth.email = email;
       mgAuth.time = exp;
-      alert("MG Auth: Restored session from cookie: " + email);
-    } else {
-      alert("MG Auth: User not authenticated");
     }
+    window.dispatchEvent(new Event("mgAuthReady"));
   }
 })();
