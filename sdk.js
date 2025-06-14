@@ -32,6 +32,7 @@ window.mgAuth = { email: null, time: null };
       }
     } catch (e) {
       alert("MG Auth: Token verification failed", e);
+      alert(JSON.stringify(json)):
     }
     return false;
   };
