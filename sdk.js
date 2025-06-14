@@ -21,6 +21,8 @@ window.mgAuth = { email: null, time: null };
       if (!res.ok) throw new Error("Server error");
       const json = await res.json();
 
+alert(json);
+      
       if (json.valid && json.email && json.exp) {
         const ttl = json.exp - Math.floor(Date.now() / 1000);
         setCookie("mg_email", json.email, ttl);
