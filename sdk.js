@@ -31,7 +31,7 @@ window.mgAuth = { email: null, time: null };
         return true;
       }
     } catch (e) {
-      console.warn("MG Auth: Token verification failed", e);
+      alert("MG Auth: Token verification failed", e);
     }
     return false;
   };
@@ -45,9 +45,9 @@ window.mgAuth = { email: null, time: null };
     if (email && exp && exp > Math.floor(Date.now() / 1000)) {
       mgAuth.email = email;
       mgAuth.time = exp;
-      console.info("MG Auth: Restored session from cookie:", email);
+      alert("MG Auth: Restored session from cookie:", email);
     } else {
-      console.info("MG Auth: User not authenticated");
+      alert("MG Auth: User not authenticated");
     }
   }
 })();
